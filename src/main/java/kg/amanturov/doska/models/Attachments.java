@@ -30,9 +30,6 @@ public class Attachments {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-//    @JoinColumn(name = "applications_id")
-//    private Applications applications;
 //
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "reviews_id")
