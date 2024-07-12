@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DoskaApplication {
+public class AutoschoolApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DoskaApplication.class, args);
+		SpringApplication.run(AutoschoolApplication.class, args);
 	}
 
 }

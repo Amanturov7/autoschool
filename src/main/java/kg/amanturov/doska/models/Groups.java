@@ -1,18 +1,23 @@
 package kg.amanturov.doska.models;
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Timestamp;
+
 @Entity
 @NoArgsConstructor
-@Table(name = "diary")
+@Table(name = "groups")
 @Getter
 @Setter
-public class Groups extends BaseModel{
-
+public class Groups {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)

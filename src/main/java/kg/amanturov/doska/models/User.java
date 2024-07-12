@@ -2,7 +2,6 @@ package kg.amanturov.doska.models;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,8 +13,12 @@ import java.util.Date;
 @Table(name = "users")
 @Getter
 @Setter
-public class User extends BaseModel{
-
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Timestamp createdAt;
+    private Timestamp updatedAt;
     private String role;
     private String username;
     private String password;
@@ -47,6 +50,4 @@ public class User extends BaseModel{
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
-
-
 }
