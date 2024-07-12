@@ -3,6 +3,8 @@ package kg.amanturov.doska.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigInteger;
 import java.sql.Timestamp;
@@ -10,12 +12,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "users")
-@Data
-public class User {
+@Getter
+@Setter
+public class User extends BaseModel{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
     private String role;
     private String username;
     private String password;
@@ -43,6 +43,10 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Groups group;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 
 
 }

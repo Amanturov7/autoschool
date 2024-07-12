@@ -2,16 +2,17 @@ package kg.amanturov.doska.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
 @Table(name = "diary")
-@Data
-public class Groups {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Getter
+@Setter
+public class Groups extends BaseModel{
+
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)

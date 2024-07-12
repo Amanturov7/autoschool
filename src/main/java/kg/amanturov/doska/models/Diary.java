@@ -2,16 +2,17 @@ package kg.amanturov.doska.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor
 @Table(name = "diary")
-@Data
-public class Diary {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Getter
+@Setter
+public class Diary  extends BaseModel{
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "title_skill_id")
     private CommonReference skills;

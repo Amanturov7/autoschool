@@ -1,4 +1,4 @@
-package kg.amanturov.doska.service;
+package kg.amanturov.doska.service.impl;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -9,6 +9,7 @@ import kg.amanturov.doska.models.User;
 import kg.amanturov.doska.repository.RefreshTokenRepository;
 import kg.amanturov.doska.repository.UserRepository;
 import kg.amanturov.doska.security.TokenProvider;
+import kg.amanturov.doska.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

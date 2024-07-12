@@ -1,9 +1,12 @@
-package kg.amanturov.doska.service;
+package kg.amanturov.doska.service.impl;
 
 import kg.amanturov.doska.dto.AttachmentRequestDto;
 import kg.amanturov.doska.dto.AttachmentResponseDto;
 import kg.amanturov.doska.models.Attachments;
 import kg.amanturov.doska.repository.AttachmentRepository;
+import kg.amanturov.doska.service.CommonReferenceService;
+import kg.amanturov.doska.service.FileStorageService;
+import kg.amanturov.doska.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;

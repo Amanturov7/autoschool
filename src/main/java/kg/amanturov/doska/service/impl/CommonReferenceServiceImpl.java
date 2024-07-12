@@ -1,4 +1,4 @@
-package kg.amanturov.doska.service;
+package kg.amanturov.doska.service.impl;
 
 
 import jakarta.persistence.EntityNotFoundException;
@@ -7,6 +7,7 @@ import kg.amanturov.doska.models.CommonReference;
 import kg.amanturov.doska.models.CommonReferenceType;
 import kg.amanturov.doska.repository.CommonReferenceRepository;
 import kg.amanturov.doska.repository.CommonReferenceTypeRepository;
+import kg.amanturov.doska.service.CommonReferenceService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
