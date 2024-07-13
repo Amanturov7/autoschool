@@ -7,6 +7,8 @@ import kg.amanturov.doska.repository.ScheduleRepository;
 import kg.amanturov.doska.service.ScheduleService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,9 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleDTO save(ScheduleDTO scheduleDTO) {
         Schedule schedule = toEntity(scheduleDTO);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        schedule.setCreatedAt(timestamp);
         schedule = scheduleRepository.save(schedule);
         return toDTO(schedule);
     }
@@ -33,7 +38,9 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule existingSchedule = scheduleRepository.findById(id).orElseThrow(() -> new RuntimeException("Schedule not found"));
         Schedule updatedSchedule = toEntity(scheduleDTO);
         updatedSchedule.setId(existingSchedule.getId());
-        updatedSchedule.setCreatedAt(existingSchedule.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedSchedule.setUpdatedAt(timestamp);
         updatedSchedule = scheduleRepository.save(updatedSchedule);
         return toDTO(updatedSchedule);
     }

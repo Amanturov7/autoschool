@@ -7,6 +7,8 @@ import kg.amanturov.doska.repository.EmployeeRepository;
 import kg.amanturov.doska.service.CarsService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,6 +26,9 @@ public class CarsServiceImpl implements CarsService {
     @Override
     public CarsDTO save(CarsDTO carDTO) {
         Cars car = toEntity(carDTO);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        car.setCreatedAt(timestamp);
         car = carsRepository.save(car);
         return toDTO(car);
     }
@@ -33,7 +38,9 @@ public class CarsServiceImpl implements CarsService {
         Cars existingCar = carsRepository.findById(id).orElseThrow(() -> new RuntimeException("Car not found"));
         Cars updatedCar = toEntity(carDTO);
         updatedCar.setId(existingCar.getId());
-        updatedCar.setCreatedAt(existingCar.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedCar.setUpdatedAt(timestamp);
         updatedCar = carsRepository.save(updatedCar);
         return toDTO(updatedCar);
     }

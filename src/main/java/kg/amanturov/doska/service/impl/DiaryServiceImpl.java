@@ -8,6 +8,8 @@ import kg.amanturov.doska.repository.UserRepository;
 import kg.amanturov.doska.service.DiaryService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,9 @@ public class DiaryServiceImpl implements DiaryService {
     @Override
     public DiaryDTO save(DiaryDTO diaryDTO) {
         Diary diary = toEntity(diaryDTO);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        diary.setCreatedAt(timestamp);
         diary = diaryRepository.save(diary);
         return toDTO(diary);
     }
@@ -35,7 +40,9 @@ public class DiaryServiceImpl implements DiaryService {
         Diary existingDiary = diaryRepository.findById(id).orElseThrow(() -> new RuntimeException("Diary not found"));
         Diary updatedDiary = toEntity(diaryDTO);
         updatedDiary.setId(existingDiary.getId());
-        updatedDiary.setCreatedAt(existingDiary.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedDiary.setUpdatedAt(timestamp);
         updatedDiary = diaryRepository.save(updatedDiary);
         return toDTO(updatedDiary);
     }

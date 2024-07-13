@@ -6,6 +6,8 @@ import kg.amanturov.doska.repository.JournalRepository;
 import kg.amanturov.doska.service.JournalService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +22,9 @@ public class JournalServiceImpl implements JournalService {
     @Override
     public JournalDTO save(JournalDTO journalDTO) {
         Journal journal = toEntity(journalDTO);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        journal.setCreatedAt(timestamp);
         journal = journalRepository.save(journal);
         return toDTO(journal);
     }
@@ -30,7 +35,9 @@ public class JournalServiceImpl implements JournalService {
                 .orElseThrow(() -> new RuntimeException("Journal not found"));
         Journal updatedJournal = toEntity(journalDTO);
         updatedJournal.setId(existingJournal.getId());
-        updatedJournal.setCreatedAt(existingJournal.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedJournal.setUpdatedAt(timestamp);
         updatedJournal = journalRepository.save(updatedJournal);
         return toDTO(updatedJournal);
     }

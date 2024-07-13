@@ -6,6 +6,9 @@ import kg.amanturov.doska.repository.EmployeeRepository;
 import kg.amanturov.doska.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +32,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee existingEmployee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
         Employee updatedEmployee = toEntity(employeeDTO);
         updatedEmployee.setId(existingEmployee.getId());
-        updatedEmployee.setCreatedAt(existingEmployee.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedEmployee.setUpdatedAt(timestamp);
         updatedEmployee = employeeRepository.save(updatedEmployee);
         return toDTO(updatedEmployee);
     }
@@ -71,7 +76,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     private Employee toEntity(EmployeeDTO dto) {
         Employee employee = new Employee();
         employee.setId(dto.getId());
-        employee.setCreatedAt(dto.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        employee.setCreatedAt(timestamp);
         employee.setUpdatedAt(dto.getUpdatedAt());
         employee.setName(dto.getName());
         employee.setDateOfBirth(dto.getDateOfBirth());

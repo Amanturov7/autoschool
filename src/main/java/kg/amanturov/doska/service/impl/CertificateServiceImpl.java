@@ -7,6 +7,8 @@ import kg.amanturov.doska.repository.UserRepository;
 import kg.amanturov.doska.service.CertificateService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,6 +25,9 @@ public class CertificateServiceImpl implements CertificateService {
     @Override
     public CertificateDTO save(CertificateDTO certificateDTO) {
         Certificate certificate = toEntity(certificateDTO);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        certificate.setCreatedAt(timestamp);
         certificate = certificateRepository.save(certificate);
         return toDTO(certificate);
     }
@@ -32,7 +37,9 @@ public class CertificateServiceImpl implements CertificateService {
         Certificate existingCertificate = certificateRepository.findById(id).orElseThrow(() -> new RuntimeException("Certificate not found"));
         Certificate updatedCertificate = toEntity(certificateDTO);
         updatedCertificate.setId(existingCertificate.getId());
-        updatedCertificate.setCreatedAt(existingCertificate.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedCertificate.setUpdatedAt(timestamp);
         updatedCertificate = certificateRepository.save(updatedCertificate);
         return toDTO(updatedCertificate);
     }

@@ -8,6 +8,8 @@ import kg.amanturov.doska.repository.GroupsRepository;
 import kg.amanturov.doska.service.GroupsService;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +28,9 @@ public class GroupsServiceImpl implements GroupsService {
     @Override
     public GroupsDTO save(GroupsDTO groupDTO) {
         Groups group = toEntity(groupDTO);
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        group.setCreatedAt(timestamp);
         group = groupsRepository.save(group);
         return toDTO(group);
     }
@@ -35,7 +40,9 @@ public class GroupsServiceImpl implements GroupsService {
         Groups existingGroup = groupsRepository.findById(id).orElseThrow(() -> new RuntimeException("Group not found"));
         Groups updatedGroup = toEntity(groupDTO);
         updatedGroup.setId(existingGroup.getId());
-        updatedGroup.setCreatedAt(existingGroup.getCreatedAt());
+        LocalDateTime now = LocalDateTime.now();
+        Timestamp timestamp = Timestamp.valueOf(now);
+        updatedGroup.setUpdatedAt(timestamp);
         updatedGroup = groupsRepository.save(updatedGroup);
         return toDTO(updatedGroup);
     }
