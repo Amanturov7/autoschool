@@ -35,8 +35,8 @@ public class Attachments {
 //    @JoinColumn(name = "reviews_id")
 //    private Review reviews;
 //
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "tickets_id")
-//    private Tickets tickets;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tickets_id")
+    private Tickets tickets;
 
 }

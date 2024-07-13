@@ -22,7 +22,7 @@ public class Groups {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_study_id")
-    private CommonReference type_study;
+    private CommonReference typeStudy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")

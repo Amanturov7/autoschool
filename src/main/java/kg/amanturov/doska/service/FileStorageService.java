@@ -20,7 +20,7 @@ public interface FileStorageService {
 
 //    AttachmentResponseDto findByReviewsId(Long id);
 //    AttachmentResponseDto findByApplicationsId(Long id);
-//    AttachmentResponseDto findByTicketsId(Long id);
+    AttachmentResponseDto findByTicketsId(Long id);
 
 
     AttachmentResponseDto findByUserId(Long id);

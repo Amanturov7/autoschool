@@ -115,21 +115,21 @@ public class FileStorageServiceImpl implements FileStorageService {
 //    }
 
 
-//    @Override
-//    public AttachmentResponseDto findByTicketsId(Long id) {
-//        Attachments Attachment = repository.findByTicketsId(id);
-//
-//        if (Attachment != null) {
-//            AttachmentResponseDto responseDto = mapToAttachmentResponseDto(Attachment);
-//            String sanitizedFileName = responseDto.getName();
-//            sanitizedFileName = sanitizedFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
-//            responseDto.setDownloadUrl("http://localhost:8080/rest/attachment/download/" + responseDto.getAttachmentId());
-//            responseDto.setName(sanitizedFileName);
-//            return responseDto;
-//        } else {
-//            return null;
-//        }
-//    }
+    @Override
+    public AttachmentResponseDto findByTicketsId(Long id) {
+        Attachments Attachment = repository.findByTicketsId(id);
+
+        if (Attachment != null) {
+            AttachmentResponseDto responseDto = mapToAttachmentResponseDto(Attachment);
+            String sanitizedFileName = responseDto.getName();
+            sanitizedFileName = sanitizedFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+            responseDto.setDownloadUrl("http://localhost:8080/rest/attachment/download/" + responseDto.getAttachmentId());
+            responseDto.setName(sanitizedFileName);
+            return responseDto;
+        } else {
+            return null;
+        }
+    }
 
     @Override
     public AttachmentResponseDto findByUserId(Long id) {
