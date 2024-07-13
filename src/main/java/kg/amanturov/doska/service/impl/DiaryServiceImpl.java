@@ -43,6 +43,7 @@ public class DiaryServiceImpl implements DiaryService {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         updatedDiary.setUpdatedAt(timestamp);
+        updatedDiary.setCreatedAt(existingDiary.getCreatedAt());
         updatedDiary = diaryRepository.save(updatedDiary);
         return toDTO(updatedDiary);
     }

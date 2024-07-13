@@ -38,6 +38,7 @@ public class JournalServiceImpl implements JournalService {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         updatedJournal.setUpdatedAt(timestamp);
+        updatedJournal.setCreatedAt(existingJournal.getCreatedAt());
         updatedJournal = journalRepository.save(updatedJournal);
         return toDTO(updatedJournal);
     }

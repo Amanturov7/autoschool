@@ -34,6 +34,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         updatedEmployee.setId(existingEmployee.getId());
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
+        updatedEmployee.setCreatedAt(existingEmployee.getCreatedAt());
         updatedEmployee.setUpdatedAt(timestamp);
         updatedEmployee = employeeRepository.save(updatedEmployee);
         return toDTO(updatedEmployee);

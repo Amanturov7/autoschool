@@ -40,6 +40,7 @@ public class CertificateServiceImpl implements CertificateService {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         updatedCertificate.setUpdatedAt(timestamp);
+        updatedCertificate.setCreatedAt(existingCertificate.getCreatedAt());
         updatedCertificate = certificateRepository.save(updatedCertificate);
         return toDTO(updatedCertificate);
     }

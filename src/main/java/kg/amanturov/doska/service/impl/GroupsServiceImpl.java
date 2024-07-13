@@ -43,6 +43,7 @@ public class GroupsServiceImpl implements GroupsService {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         updatedGroup.setUpdatedAt(timestamp);
+        updatedGroup.setCreatedAt(existingGroup.getCreatedAt());
         updatedGroup = groupsRepository.save(updatedGroup);
         return toDTO(updatedGroup);
     }

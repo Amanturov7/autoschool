@@ -15,27 +15,27 @@ public class CarsController {
         this.carsService = carsService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public CarsDTO create(@RequestBody CarsDTO carsDTO) {
         return carsService.save(carsDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public CarsDTO update(@PathVariable Long id, @RequestBody CarsDTO carsDTO) {
         return carsService.update(id, carsDTO);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void delete(@PathVariable Long id) {
         carsService.delete(id);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/car/{id}")
     public CarsDTO getById(@PathVariable Long id) {
         return carsService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<CarsDTO> getAll() {
         return carsService.findAll();
     }

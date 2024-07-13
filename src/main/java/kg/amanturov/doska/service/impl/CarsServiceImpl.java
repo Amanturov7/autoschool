@@ -41,6 +41,7 @@ public class CarsServiceImpl implements CarsService {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         updatedCar.setUpdatedAt(timestamp);
+        updatedCar.setCreatedAt(existingCar.getCreatedAt());
         updatedCar = carsRepository.save(updatedCar);
         return toDTO(updatedCar);
     }

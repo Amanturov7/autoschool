@@ -41,6 +41,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         LocalDateTime now = LocalDateTime.now();
         Timestamp timestamp = Timestamp.valueOf(now);
         updatedSchedule.setUpdatedAt(timestamp);
+        updatedSchedule.setCreatedAt(existingSchedule.getCreatedAt());
         updatedSchedule = scheduleRepository.save(updatedSchedule);
         return toDTO(updatedSchedule);
     }
