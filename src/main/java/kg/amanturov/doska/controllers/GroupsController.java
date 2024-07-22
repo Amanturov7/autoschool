@@ -35,7 +35,7 @@ public class GroupsController {
         return groupsService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<GroupsDTO> getAll() {
         return groupsService.findAll();
     }

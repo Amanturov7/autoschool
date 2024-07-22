@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -32,6 +33,12 @@ public class UserController {
         return userOptional
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+
+    @GetMapping("/all")
+    public List<User> getAll() {
+        return userService.getUsers();
     }
 
 
