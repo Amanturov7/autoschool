@@ -12,7 +12,9 @@ public class LessonsDTO {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String name;
-    private Long employee;
+    private Long groupId;
+    private Long lessonType;
+    private String lessonTypeName;
     private String description;
     private Boolean isArchived;
     private Timestamp timeRemain;

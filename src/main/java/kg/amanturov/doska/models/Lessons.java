@@ -21,9 +21,15 @@ public class Lessons {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private String name;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
+    @JoinColumn(name = "lesson_type_id")
+    private CommonReference lessonType;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groups_id")
+    private Groups groups;
+
     private String description;
     private Boolean isArchived;
     private Timestamp timeRemain;

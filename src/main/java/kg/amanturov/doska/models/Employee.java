@@ -26,4 +26,7 @@ public class Employee {
     private String whatsUp;
     private String telegram;
     private String skills;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "employee_yype")
+    private CommonReference employeeType;
 }

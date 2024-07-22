@@ -4,11 +4,13 @@ CREATE TABLE employee (
                           updated_at TIMESTAMP,
                           name VARCHAR(255),
                           date_of_birth DATE,
-                          number VARCHAR(255),
+                          number VARCHAR(50),
                           email VARCHAR(255),
                           whats_up VARCHAR(255),
                           telegram VARCHAR(255),
-                          skills VARCHAR(255)
+                          skills TEXT,
+                          employee_type BIGINT,
+                          CONSTRAINT fk_employee_type FOREIGN KEY(employee_type) REFERENCES common_reference(id)
 );
 
 CREATE TABLE groups (

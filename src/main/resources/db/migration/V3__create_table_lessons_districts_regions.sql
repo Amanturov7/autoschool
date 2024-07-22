@@ -1,21 +1,45 @@
 CREATE TABLE lessons (
                          id SERIAL PRIMARY KEY,
-                         created_at TIMESTAMP NOT NULL,
-                         updated_at TIMESTAMP NOT NULL,
-                         name VARCHAR(255) NOT NULL,
-                         employee_id BIGINT,
+                         created_at TIMESTAMP,
+                         updated_at TIMESTAMP,
+                         name VARCHAR(255),
                          description TEXT,
                          is_archived BOOLEAN,
                          time_remain TIMESTAMP,
-                         CONSTRAINT fk_employee
-                             FOREIGN KEY(employee_id)
-                                 REFERENCES employee(id)
+                        lesson_type_id BIGINT,
+                        groups_id BIGINT,
+                         CONSTRAINT fk_lesson_type
+                             FOREIGN KEY(lesson_type_id)
+                                 REFERENCES common_reference(id),
+                         CONSTRAINT fk_groups
+                             FOREIGN KEY(groups_id)
+                                 REFERENCES groups(id)
 );
-
 
 
 insert into common_reference_type(title,code) values('область', '001');
 insert into common_reference_type(title,code) values('районы', '002');
+insert into common_reference_type(title,code) values('Тип сотрудника', '003');
+insert into common_reference_type(title,code) values('Вид обучения', '004');
+insert into common_reference_type(title,code) values('Тип урока', '005');
+insert into common_reference_type(title,code) values('Категории навыков для лекции', '006');
+insert into common_reference_type(title,code) values('Категории навыков для практики', '007');
+
+
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '005' ),'Урок',001);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '005' ),'Индивидуальное задание',002);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '005' ),'Еженедельный контроль',003);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '005' ),'Экзамен',004);
+
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '004' ),'Утреннее',001);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '004' ),'Дневное',002);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '004' ),'Вечернее',003);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '004' ),'Онлайн',004);
+
+
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '003' ),'Лектор',001);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '003' ),'Администратор',002);
+insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '003' ),'Инструктор',003);
 
 insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '001' ),'Чуй',001);
 insert into common_reference(type_id,title,code) values((select id from common_reference_type where code = '001' ),'Нарын',002);
