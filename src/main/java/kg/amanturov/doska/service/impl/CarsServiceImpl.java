@@ -2,6 +2,7 @@ package kg.amanturov.doska.service.impl;
 
 import kg.amanturov.doska.dto.CarsDTO;
 import kg.amanturov.doska.models.Cars;
+import kg.amanturov.doska.models.Employee;
 import kg.amanturov.doska.repository.CarsRepository;
 import kg.amanturov.doska.repository.EmployeeRepository;
 import kg.amanturov.doska.service.CarsService;
@@ -94,7 +95,8 @@ public class CarsServiceImpl implements CarsService {
         car.setYear(dto.getYear());
         car.setDifficultyLevel(dto.getDifficultyLevel());
         if (dto.getEmployeeId() != null) {
-            car.setEmployee(employeeRepository.findById(dto.getEmployeeId()).orElse(null));
+           Employee employee = employeeRepository.findById(dto.getEmployeeId()).orElse(null);
+            car.setEmployee(employee);
         }
         return car;
     }

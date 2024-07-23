@@ -9,7 +9,7 @@ public class AttachmentRequestDto {
     private String originName;
     private String description;
     private Long userProfileId;
-    private Long applicationsId;
+    private Long groupsId;
     private Long ticketsId;
-    private Long reviewsId;
+    private Long carsId;
 }

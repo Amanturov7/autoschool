@@ -1,6 +1,7 @@
 package kg.amanturov.doska.service;
 
 import kg.amanturov.doska.dto.CarsDTO;
+import kg.amanturov.doska.models.Cars;
 
 import java.util.List;
 

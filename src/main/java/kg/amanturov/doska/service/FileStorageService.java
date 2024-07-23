@@ -17,8 +17,11 @@ public interface FileStorageService {
     String save(MultipartFile file, String path);
 
 
+    AttachmentResponseDto findByCarsId(Long id);
 
-//    AttachmentResponseDto findByReviewsId(Long id);
+    AttachmentResponseDto findByGroupsId(Long id);
+
+    //    AttachmentResponseDto findByReviewsId(Long id);
 //    AttachmentResponseDto findByApplicationsId(Long id);
     AttachmentResponseDto findByTicketsId(Long id);
 

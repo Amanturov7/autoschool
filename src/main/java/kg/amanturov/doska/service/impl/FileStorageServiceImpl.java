@@ -3,10 +3,14 @@ package kg.amanturov.doska.service.impl;
 import kg.amanturov.doska.dto.AttachmentRequestDto;
 import kg.amanturov.doska.dto.AttachmentResponseDto;
 import kg.amanturov.doska.models.Attachments;
+import kg.amanturov.doska.models.Cars;
+import kg.amanturov.doska.models.Groups;
+import kg.amanturov.doska.models.Tickets;
 import kg.amanturov.doska.repository.AttachmentRepository;
-import kg.amanturov.doska.service.CommonReferenceService;
-import kg.amanturov.doska.service.FileStorageService;
-import kg.amanturov.doska.service.UserService;
+import kg.amanturov.doska.repository.CarsRepository;
+import kg.amanturov.doska.repository.GroupsRepository;
+import kg.amanturov.doska.repository.TicketsRepository;
+import kg.amanturov.doska.service.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -32,9 +36,9 @@ public class FileStorageServiceImpl implements FileStorageService {
 
     private final AttachmentRepository repository;
     private final UserService userService;
-//    private final ApplicationsService applicationsService;
-//    private final ReviewService reviewService;
-//    private final TicketsRepository ticketsRepository;
+    private final CarsRepository carsRepository;
+    private final GroupsRepository groupsRepository;
+    private final TicketsRepository ticketsRepository;
     private final CommonReferenceService commonReferenceService;
 
 //    private final MyTelegramBot myTelegramBot;
@@ -46,9 +50,12 @@ public class FileStorageServiceImpl implements FileStorageService {
     private String videoDirectory;
 
 
-    public FileStorageServiceImpl(AttachmentRepository repository, UserService userService, CommonReferenceService commonReferenceService) {
+    public FileStorageServiceImpl(AttachmentRepository repository, UserService userService, CarsRepository carsRepository, GroupsRepository groupsRepository, TicketsRepository ticketsRepository, CommonReferenceService commonReferenceService) {
         this.repository = repository;
         this.userService = userService;
+        this.carsRepository = carsRepository;
+        this.groupsRepository = groupsRepository;
+        this.ticketsRepository = ticketsRepository;
         this.commonReferenceService = commonReferenceService;
     }
 
@@ -82,37 +89,37 @@ public class FileStorageServiceImpl implements FileStorageService {
         return null;
     }
 
-//    @Override
-//    public AttachmentResponseDto findByApplicationsId(Long id) {
-//         Attachments Attachment = repository.findByApplicationsId(id);
-//
-//        if (Attachment != null) {
-//            AttachmentResponseDto responseDto = mapToAttachmentResponseDto(Attachment);
-//            String sanitizedFileName = responseDto.getName();
-//            sanitizedFileName = sanitizedFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
-//            responseDto.setDownloadUrl("http://localhost:8080/rest/attachment/download/" + responseDto.getAttachmentId());
-//            responseDto.setName(sanitizedFileName);
-//            return responseDto;
-//        } else {
-//            return null;
-//        }
-//    }
+    @Override
+    public AttachmentResponseDto findByCarsId(Long id) {
+         Attachments Attachment = repository.findByCarsId(id);
 
-//    @Override
-//    public AttachmentResponseDto findByReviewsId(Long id) {
-//        Attachments Attachment = repository.findByReviewsId(id);
-//
-//        if (Attachment != null) {
-//            AttachmentResponseDto responseDto = mapToAttachmentResponseDto(Attachment);
-//            String sanitizedFileName = responseDto.getName();
-//            sanitizedFileName = sanitizedFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
-//            responseDto.setDownloadUrl("http://localhost:8080/rest/attachment/download/" + responseDto.getAttachmentId());
-//            responseDto.setName(sanitizedFileName);
-//            return responseDto;
-//        } else {
-//            return null;
-//        }
-//    }
+        if (Attachment != null) {
+            AttachmentResponseDto responseDto = mapToAttachmentResponseDto(Attachment);
+            String sanitizedFileName = responseDto.getName();
+            sanitizedFileName = sanitizedFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+            responseDto.setDownloadUrl("http://localhost:8080/rest/attachment/download/" + responseDto.getAttachmentId());
+            responseDto.setName(sanitizedFileName);
+            return responseDto;
+        } else {
+            return null;
+        }
+    }
+
+    @Override
+    public AttachmentResponseDto findByGroupsId(Long id) {
+        Attachments Attachment = repository.findByGroupsId(id);
+
+        if (Attachment != null) {
+            AttachmentResponseDto responseDto = mapToAttachmentResponseDto(Attachment);
+            String sanitizedFileName = responseDto.getName();
+            sanitizedFileName = sanitizedFileName.replaceAll("[^a-zA-Z0-9.-]", "_");
+            responseDto.setDownloadUrl("http://localhost:8080/rest/attachment/download/" + responseDto.getAttachmentId());
+            responseDto.setName(sanitizedFileName);
+            return responseDto;
+        } else {
+            return null;
+        }
+    }
 
 
     @Override
@@ -182,10 +189,10 @@ public class FileStorageServiceImpl implements FileStorageService {
         responseDto.setType(dto.getType());
         responseDto.setExtension(extension);
         responseDto.setName(fileName);
-        responseDto.setAppicationsId(dto.getApplicationsId());
+        responseDto.setGroupsId(dto.getGroupsId());
         responseDto.setUserId(dto.getUserProfileId());
         responseDto.setTicketsId(dto.getTicketsId());
-        responseDto.setReviewsId(dto.getReviewsId());
+        responseDto.setCarsId(dto.getCarsId());
         responseDto.setDescription(dto.getDescription());
         responseDto.setOriginName(dto.getOriginName());
         Attachments attachments = convertDtoToEntity(responseDto);
@@ -362,20 +369,22 @@ public class FileStorageServiceImpl implements FileStorageService {
         attachments.setPath(responseDto.getFilePath());
         attachments.setDescription(responseDto.getDescription());
 
-//        if (responseDto.getTicketsId() != null) {
-//            Optional<Tickets> ticketsOptional = ticketsRepository.findById(responseDto.getTicketsId());
-//            ticketsOptional.ifPresent(attachments::setTickets);
-//        }
-//
-//        if(responseDto.getUserId() != null) {
-//            attachments.setUser(userService.findById(responseDto.getUserId()));
-//        }
-//        if(responseDto.getAppicationsId() != null) {
-//            attachments.setApplications(applicationsService.findById(responseDto.getAppicationsId()));
-//        }
-//        if(responseDto.getReviewsId() != null) {
-//            attachments.setReviews(reviewService.findById(responseDto.getReviewsId()));
-//        }
+        if (responseDto.getTicketsId() != null) {
+            Optional<Tickets> ticketsOptional = ticketsRepository.findById(responseDto.getTicketsId());
+            ticketsOptional.ifPresent(attachments::setTickets);
+        }
+
+        if(responseDto.getUserId() != null) {
+            attachments.setUser(userService.findById(responseDto.getUserId()));
+        }
+        if(responseDto.getCarsId() != null) {
+            Optional<Cars> carsOptional = carsRepository.findById(responseDto.getCarsId());
+            carsOptional.ifPresent(attachments::setCars);
+        }
+        if(responseDto.getGroupsId() != null) {
+            Optional<Groups> groupsOptional = groupsRepository.findById(responseDto.getGroupsId());
+            groupsOptional.ifPresent(attachments::setGroups);
+        }
         return attachments;
     }
     private AttachmentResponseDto convertEntityToDto(Attachments attachments) {
@@ -386,15 +395,18 @@ public class FileStorageServiceImpl implements FileStorageService {
         responseDto.setFilePath(attachments.getPath());
         responseDto.setAttachmentId(attachments.getId());
         responseDto.setDescription(attachments.getDescription());
-//        if(attachments.getTickets() != null ){
-//            responseDto.setTicketsId(attachments.getTickets().getId());
-//        }
-//        if(attachments.getUser() != null) {
-//            responseDto.setUserId(attachments.getUser().getId());
-//        }
-//        if(attachments.getApplications() != null) {
-//            responseDto.setAppicationsId(attachments.getApplications().getId());
-//        }
+        if(attachments.getTickets() != null ){
+            responseDto.setTicketsId(attachments.getTickets().getId());
+        }
+        if(attachments.getUser() != null) {
+            responseDto.setUserId(attachments.getUser().getId());
+        }
+        if(attachments.getCars() != null) {
+            responseDto.setCarsId(attachments.getCars().getId());
+        }
+        if(attachments.getGroups() != null) {
+            responseDto.setGroupsId(attachments.getGroups().getId());
+        }
         return responseDto;
     }
 

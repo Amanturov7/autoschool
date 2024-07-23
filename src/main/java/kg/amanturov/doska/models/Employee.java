@@ -27,6 +27,6 @@ public class Employee {
     private String telegram;
     private String skills;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_yype")
+    @JoinColumn(name = "employee_type")
     private CommonReference employeeType;
 }

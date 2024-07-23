@@ -164,7 +164,7 @@ public class LessonsServiceImpl implements LessonsService {
             lessons.setGroups(groupsRepository.findById(dto.getGroupId()).get());
         }
         if(Objects.nonNull(dto.getLessonType())){
-            lessons.setGroups(groupsRepository.findById(dto.getLessonType()).get());
+            lessons.setLessonType(commonReferenceService.findById(dto.getLessonType()));
         }
         lessons.setCreatedAt(dto.getCreatedAt());
         lessons.setUpdatedAt(dto.getUpdatedAt());

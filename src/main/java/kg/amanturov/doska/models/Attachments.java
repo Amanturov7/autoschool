@@ -30,11 +30,17 @@ public class Attachments {
     @JoinColumn(name = "user_id")
     private User user;
 
-//
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "reviews_id")
-//    private Review reviews;
-//
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cars_id")
+    private Cars cars;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "groups_id")
+    private Groups groups;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tickets_id")
     private Tickets tickets;

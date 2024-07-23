@@ -1,6 +1,7 @@
 package kg.amanturov.doska.service;
 
 import kg.amanturov.doska.dto.GroupsDTO;
+import kg.amanturov.doska.models.Groups;
 
 import java.util.List;
 
