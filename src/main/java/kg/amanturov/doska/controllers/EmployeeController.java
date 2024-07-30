@@ -35,7 +35,7 @@ public class EmployeeController {
         return employeeService.findById(id);
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public List<EmployeeDTO> getAll() {
         return employeeService.findAll();
     }
