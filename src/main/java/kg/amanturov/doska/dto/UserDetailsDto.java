@@ -17,5 +17,6 @@ public class UserDetailsDto {
     private String telegram;
     private String whatsUp;
     private String groupName;
+    private String fio;
     private Long groupId;
 }

@@ -121,6 +121,7 @@ public class UserServiceImpl implements UserService {
         dto.setLastName(user.getLastName());
         dto.setDateOfBirth(user.getDateOfBirth());
         dto.setTelegram(user.getTelegram());
+        dto.setFio(user.getName()+" "+user.getSurname());
         dto.setWhatsUp(user.getWhatsUp());
         if(Objects.nonNull(user.getGroup())){
             dto.setGroupId(user.getGroup().getId());
