@@ -1,11 +1,13 @@
 package kg.amanturov.doska.service.impl;
 
 import kg.amanturov.doska.dto.GroupsDTO;
+import kg.amanturov.doska.dto.UserDetailsDto;
 import kg.amanturov.doska.models.Groups;
 import kg.amanturov.doska.repository.CommonReferenceRepository;
 import kg.amanturov.doska.repository.EmployeeRepository;
 import kg.amanturov.doska.repository.GroupsRepository;
 import kg.amanturov.doska.service.GroupsService;
+import kg.amanturov.doska.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -18,11 +20,14 @@ public class GroupsServiceImpl implements GroupsService {
     private final GroupsRepository groupsRepository;
     private final CommonReferenceRepository commonReferenceRepository;
     private final EmployeeRepository employeeRepository;
+    private final UserService userService;
 
-    public GroupsServiceImpl(GroupsRepository groupsRepository, CommonReferenceRepository commonReferenceRepository, EmployeeRepository employeeRepository) {
+
+    public GroupsServiceImpl(GroupsRepository groupsRepository, CommonReferenceRepository commonReferenceRepository, EmployeeRepository employeeRepository, UserService userService) {
         this.groupsRepository = groupsRepository;
         this.commonReferenceRepository = commonReferenceRepository;
         this.employeeRepository = employeeRepository;
+        this.userService = userService;
     }
 
     @Override
@@ -75,13 +80,21 @@ public class GroupsServiceImpl implements GroupsService {
         dto.setName(group.getName());
         if (group.getTypeStudy() != null) {
             dto.setTypeStudyId(group.getTypeStudy().getId());
+            dto.setTypeStudyName(group.getTypeStudy().getTitle());
         }
         if (group.getCategory() != null) {
             dto.setCategoryId(group.getCategory().getId());
+            dto.setCategoryName(group.getCategory().getTitle());
         }
         if (group.getEmployee() != null) {
             dto.setEmployeeId(group.getEmployee().getId());
+            dto.setEmployeeName(group.getEmployee().getName());
         }
+        List<UserDetailsDto> users = userService.findAllByGroupId(group.getId());
+        if (!users.isEmpty()) {
+            dto.setUsersDto(users);
+        }
+
         return dto;
     }
 

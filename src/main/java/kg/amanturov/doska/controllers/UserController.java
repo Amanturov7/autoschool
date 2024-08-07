@@ -1,6 +1,7 @@
 package kg.amanturov.doska.controllers;
 
 
+import kg.amanturov.doska.dto.UserDetailsDto;
 import kg.amanturov.doska.models.User;
 import kg.amanturov.doska.service.FileStorageService;
 import kg.amanturov.doska.service.UserService;
@@ -36,9 +37,14 @@ public class UserController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping
     public List<User> getAll() {
         return userService.getUsers();
+    }
+
+    @GetMapping("/all")
+    public List<UserDetailsDto> getUsers() {
+        return userService.getAllUsers();
     }
 
 

@@ -3,6 +3,7 @@ package kg.amanturov.doska.service;
 
 
 
+import kg.amanturov.doska.dto.UserDetailsDto;
 import kg.amanturov.doska.models.User;
 
 import java.util.List;
@@ -12,6 +13,8 @@ public interface UserService {
 
 
     List<User> getUsers();
+
+    List<UserDetailsDto> getAllUsers();
 
     Optional<User> getUserByUsername(String username);
 
@@ -27,6 +30,8 @@ public interface UserService {
     User saveUser(User user);
 
     User findById(Long id);
+
+    List<UserDetailsDto> findAllByGroupId(Long id);
 
     void deleteUser(User user);
 }

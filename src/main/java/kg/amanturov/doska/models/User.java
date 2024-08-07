@@ -35,6 +35,7 @@ public class User {
     private String telegram;
     private String whatsUp;
     private Boolean agree;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id")
     private CommonReference region;
