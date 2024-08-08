@@ -47,6 +47,11 @@ public class UserController {
         return userService.getAllUsers();
     }
 
+//    @GetMapping("/all/employee")
+//    public List<UserDetailsDto> getEmployees() {
+//        return userService.findAllEmployees();
+//    }
+//
 
     @PostMapping("/{userId}/avatar")
     public ResponseEntity<?> uploadAvatar(@PathVariable Long userId, @RequestParam("file") MultipartFile file) {

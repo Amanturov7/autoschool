@@ -16,6 +16,8 @@ public interface UserService {
 
     List<UserDetailsDto> getAllUsers();
 
+//    List<UserDetailsDto> findAllEmployees();
+
     Optional<User> getUserByUsername(String username);
 
     Optional<User> getUserByToken(String token);

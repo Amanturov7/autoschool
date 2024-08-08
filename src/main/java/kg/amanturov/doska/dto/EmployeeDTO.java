@@ -16,4 +16,7 @@ public class EmployeeDTO {
     private String whatsUp;
     private String telegram;
     private String skills;
+    private Long employeeTypeId;
+    private String employeeTypeName;
+
 }

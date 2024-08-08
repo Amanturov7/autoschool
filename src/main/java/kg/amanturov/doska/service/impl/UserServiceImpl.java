@@ -59,6 +59,14 @@ public class UserServiceImpl implements UserService {
                .collect(Collectors.toList());
     }
 
+//    @Override
+//    public List<UserDetailsDto> findAllEmployees() {
+//        return userRepository.findAllEmployee().stream()
+//                .map(this::toUserGroupDto)
+//                .collect(Collectors.toList());
+//    }
+
+
 
     @Override
     public Optional<User> getUserByUsername(String username) {

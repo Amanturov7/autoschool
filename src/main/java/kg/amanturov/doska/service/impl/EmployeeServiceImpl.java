@@ -3,6 +3,7 @@ package kg.amanturov.doska.service.impl;
 import kg.amanturov.doska.dto.EmployeeDTO;
 import kg.amanturov.doska.models.Employee;
 import kg.amanturov.doska.repository.EmployeeRepository;
+import kg.amanturov.doska.service.CommonReferenceService;
 import kg.amanturov.doska.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
@@ -10,14 +11,18 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final CommonReferenceService commonReferenceService;
 
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, CommonReferenceService commonReferenceService) {
         this.employeeRepository = employeeRepository;
+        this.commonReferenceService = commonReferenceService;
     }
 
     @Override
@@ -71,6 +76,8 @@ public class EmployeeServiceImpl implements EmployeeService {
         dto.setWhatsUp(employee.getWhatsUp());
         dto.setTelegram(employee.getTelegram());
         dto.setSkills(employee.getSkills());
+        dto.setEmployeeTypeId(employee.getEmployeeType().getId());
+        dto.setEmployeeTypeName(employee.getEmployeeType().getTitle());
         return dto;
     }
 
@@ -88,6 +95,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setWhatsUp(dto.getWhatsUp());
         employee.setTelegram(dto.getTelegram());
         employee.setSkills(dto.getSkills());
+        if(Objects.nonNull(dto.getEmployeeTypeId())){
+            employee.setEmployeeType(commonReferenceService.findById(dto.getEmployeeTypeId()));
+        }
         return employee;
     }
 }
