@@ -65,6 +65,12 @@ public class GroupsServiceImpl implements GroupsService {
         return toDTO(group);
     }
 
+
+    @Override
+    public Groups findGroupById(Long id) {
+        return groupsRepository.findById(id).orElseThrow(() -> new RuntimeException("Group not found"));
+    }
+
     @Override
     public List<GroupsDTO> findAll() {
         return groupsRepository.findAll().stream()

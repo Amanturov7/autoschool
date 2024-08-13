@@ -7,6 +7,8 @@ import kg.amanturov.doska.dto.EmployeeSIgnUpDto;
 import kg.amanturov.doska.dto.securityDto.LoginResponse;
 import kg.amanturov.doska.models.User;
 import kg.amanturov.doska.security.WebSecurityConfig;
+import kg.amanturov.doska.service.EmployeeService;
+import kg.amanturov.doska.service.GroupsService;
 import kg.amanturov.doska.service.SignUpService;
 import kg.amanturov.doska.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,15 +21,17 @@ import java.time.LocalDateTime;
 public class SignUpServiceImpl implements SignUpService {
 
     private final UserService userService;
-
+    private final EmployeeService employeeService;
+    private final GroupsService groupsService;
     private final PasswordEncoder passwordEncoder;
 
-
-    public SignUpServiceImpl(UserService userService,  PasswordEncoder passwordEncoder) {
+    public SignUpServiceImpl(UserService userService, EmployeeService employeeService, GroupsService groupsService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
-
+        this.employeeService = employeeService;
+        this.groupsService = groupsService;
         this.passwordEncoder = passwordEncoder;
     }
+
 
     @Override
     public void saveEmployee(EmployeeSIgnUpDto dtos) {
@@ -69,6 +73,23 @@ public class SignUpServiceImpl implements SignUpService {
         user.setSignupDate(timestamp);
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setRole(WebSecurityConfig.USER);
+        user.setCreatedAt(timestamp);
+        user.setUpdatedAt(timestamp);
+        if(signUpRequest.getEmployeeId() != null) {
+            user.setEmployee(employeeService.findEmployeeById(signUpRequest.getEmployeeId()));
+
+        }
+        if(signUpRequest.getGroupId() != null) {
+            user.setGroup(groupsService.findGroupById(signUpRequest.getGroupId()));
+        }
+        user.setSignupDate(timestamp);
+        user.setName(signUpRequest.getName());
+        user.setSurname(signUpRequest.getSurname());
+        user.setLastName(signUpRequest.getLastName());
+        user.setDateOfBirth(signUpRequest.getDateOfBirth());
+        user.setTelegram(signUpRequest.getTelegram());
+        user.setWhatsUp(signUpRequest.getWhatsUp());
+        user.setAgree(signUpRequest.getAgree());
         return user;
     }
 }

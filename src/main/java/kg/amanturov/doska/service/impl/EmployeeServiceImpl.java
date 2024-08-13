@@ -8,7 +8,6 @@ import kg.amanturov.doska.service.EmployeeService;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
@@ -55,6 +54,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO findById(Long id) {
         Employee employee = employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
         return toDTO(employee);
+    }
+
+    @Override
+    public Employee findEmployeeById(Long id) {
+        return employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
+
     }
 
     @Override

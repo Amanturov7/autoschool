@@ -10,5 +10,8 @@ public interface GroupsService {
     GroupsDTO update(Long id, GroupsDTO groupDTO);
     void delete(Long id);
     GroupsDTO findById(Long id);
+
+    Groups findGroupById(Long id);
+
     List<GroupsDTO> findAll();
 }
