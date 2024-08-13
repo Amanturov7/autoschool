@@ -20,11 +20,13 @@ public class Diary {
     private Long id;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private Integer mark;
+
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "title_skill_id")
     private CommonReference skills;
-    private Integer mark;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private CommonReference category;
